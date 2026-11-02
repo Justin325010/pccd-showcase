@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PCCD · AI 火焰场重建与辐射解耦</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <div class="nav-inner">
+      <a class="brand" href="#hero">PCCD<span>·FlameLab</span></a>
+      <div class="nav-links">
+        <a href="#summary">研究总览</a>
+        <a href="#problem">科学问题</a>
+        <a href="#innovation">创新点</a>
+        <a href="#reconstruction">场重建</a>
+        <a href="#gnn">辐射解耦</a>
+        <a href="#decision">智能决策台</a>
+        <a href="#evaluation">评估</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="hero">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-inner">
+      <p class="eyebrow">AI FOR COMBUSTION SCIENCE</p>
+      <h1>看见不可见：<br />AI 驱动的火焰场重建与辐射解耦</h1>
+      <p class="hero-copy">从稀疏观测出发，重建火焰热化学状态；解析多场对谱辐射的决定作用；进一步实现反应路径与燃料种类的自主设计。</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#decision">体验智能决策台</a>
+        <a class="btn btn-ghost" href="#reconstruction">查看核心结果</a>
+      </div>
+      <div class="hero-tags">
+        <span>稀疏观测重建</span>
+        <span>物理约束扩散模型</span>
+        <span>图神经网络解耦</span>
+        <span>热辐射自主设计</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="summary" class="section section-alt">
+      <div class="section-heading">
+        <p class="section-kicker">RESEARCH BRIEF</p>
+        <h2>研究主线：三问、三新、一个闭环</h2>
+        <p>先把复杂多场问题压缩成三个可回答的科学问题，再用三个 AI 方法点打通“观测—理解—设计”闭环。</p>
+      </div>
+      <div class="summary-grid">
+        <article class="glass-card summary-panel">
+          <h3>三个科学问题</h3>
+          <div class="summary-item"><strong>Q1 · 可辨识边界</strong><p>稀疏观测下，火焰热化学状态的可辨识边界在哪里？</p></div>
+          <div class="summary-item"><strong>Q2 · 多场解耦</strong><p>温度场与组分如何共同决定谱辐射输运，各自贡献如何定量拆分？</p></div>
+          <div class="summary-item"><strong>Q3 · 工况调控</strong><p>当量比与火焰高度如何驱动关键反应路径和辐射贡献？</p></div>
+        </article>
+        <article class="glass-card summary-panel">
+          <h3>三个创新点</h3>
+          <div class="summary-item"><strong>新 01 · 视觉先验重建</strong><p>在物理约束扩散重建中加入视觉模块，让火焰图像先验参与场重建。</p></div>
+          <div class="summary-item"><strong>新 02 · GNN 可解释解耦</strong><p>用图神经网络分离直接与间接影响，把辐射贡献解释从局部推向整体。</p></div>
+          <div class="summary-item"><strong>新 03 · 辐射机理设计</strong><p>从反应路径设计出发，完成热辐射重分配，形成自主设计闭环。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="problem" class="section">
+      <div class="section-heading">
+        <p class="section-kicker">01 · RESEARCH QUESTION</p>
+        <h2>三大核心科学问题</h2>
+        <p>把燃烧复杂多场抽象为温度场、组分场与辐射场的耦合，围绕三个问题展开。</p>
+      </div>
+      <div class="problem-grid">
+        <article class="glass-card problem-card">
+          <div class="card-index">Q1</div>
+          <h3>稀疏观测下，火焰热化学状态的可辨识边界在哪里？</h3>
+          <p>有限的传感器观测能还原多少三维温度与组分信息？系统给出可辨识边界，而不是只给一个“看似完整”的重建结果。</p>
+        </article>
+        <article class="glass-card problem-card">
+          <div class="card-index">Q2</div>
+          <h3>温度场与组分如何共同决定谱辐射输运？</h3>
+          <p>温度通常起主导作用，但单一组分的影响必须被定量解耦，才能判断谁在何时、何地对辐射贡献更大。</p>
+        </article>
+        <article class="glass-card problem-card">
+          <div class="card-index">Q3</div>
+          <h3>当量比与火焰高度如何驱动关键反应路径和辐射贡献？</h3>
+          <p>工况变化会改变反应路径的重要性，进而改变辐射能量分配。这决定了能否从“解释过去”走向“设计未来”。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="innovation" class="section section-alt">
+      <div class="section-heading">
+        <p class="section-kicker">02 · INNOVATION</p>
+        <h2>从 AI for Science 角度提炼的三个创新点</h2>
+      </div>
+      <div class="innovation-grid">
+        <article class="glass-card innovation-card">
+          <div class="innovation-num">01</div>
+          <h3>场重建中的视觉模块</h3>
+          <p>比以往场重建工作多加入视觉模块，让 AI 从火焰图像中理解可识读的热化学状态，将图像先验与物理约束融合。</p>
+        </article>
+        <article class="glass-card innovation-card">
+          <div class="innovation-num">02</div>
+          <h3>局部到整体的 GNN 解耦</h3>
+          <p>首次应用图神经网络，定量区分反应路径中某一变量对目标场的直接影响与间接影响，实现从局部到整体的可解释分析。</p>
+        </article>
+        <article class="glass-card innovation-card">
+          <div class="innovation-num">03</div>
+          <h3>面向辐射重分配的机理设计</h3>
+          <p>从反应路径自主设计的角度，探索热辐射重分配，把“观测—理解—设计”串成完整闭环。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="reconstruction" class="section">
+      <div class="section-heading">
+        <p class="section-kicker">03 · FIELD RECONSTRUCTION</p>
+        <h2>从稀疏观测还原实际火焰温度场</h2>
+        <p>拖动观测密度，观察重建质量与可辨识边界的直观变化。</p>
+      </div>
+      <div class="recon-layout">
+        <div class="recon-canvas-wrap glass-card">
+          <canvas id="fieldCanvas" width="420" height="300"></canvas>
+          <div class="recon-mode">
+            <button class="mode-btn active" data-mode="sparse">稀疏观测</button>
+            <button class="mode-btn" data-mode="reconstructed">AI 重建</button>
+            <button class="mode-btn" data-mode="truth">真实场</button>
+          </div>
+        </div>
+        <div class="recon-panel glass-card">
+          <label for="densitySlider">观测密度：<strong id="densityValue">24</strong> 个传感器</label>
+          <input id="densitySlider" type="range" min="4" max="96" step="4" value="24" />
+          <div class="metric-row">
+            <div><span>重建 RMSE</span><strong id="rmseValue">0.138</strong></div>
+            <div><span>不确定性覆盖率</span><strong id="coverageValue">91.4%</strong></div>
+          </div>
+          <p class="recon-note">颜色从深蓝到橙红表示温度由低到高；真实场来自当量比 1.2 的热电偶数据 Tg_avg（7×11 网格，x=0–30 mm，z=10–60 mm）。AI 重建仍为稀疏观测插值演示。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="gnn" class="section section-alt">
+      <div class="section-heading">
+        <p class="section-kicker">04 · GNN EXPLAINABILITY</p>
+        <h2>从局部到整体解析多场对辐射的贡献</h2>
+        <p>点击左侧节点，查看该变量对谱辐射目标的直接与间接影响。</p>
+      </div>
+      <div class="gnn-layout">
+        <div class="gnn-graph glass-card">
+          <svg id="gnnSvg" viewBox="0 0 440 340" role="img" aria-label="图神经网络结构示意"></svg>
+        </div>
+        <div class="gnn-side glass-card">
+          <p class="gnn-node-label">当前节点：<strong id="gnnNodeName">温度场 T</strong></p>
+          <div class="bar-item">
+            <div class="bar-label"><span>直接影响</span><strong id="directValue">0.46</strong></div>
+            <div class="bar-track"><i id="directBar" class="bar-fill direct"></i></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>间接影响</span><strong id="indirectValue">0.14</strong></div>
+            <div class="bar-track"><i id="indirectBar" class="bar-fill indirect"></i></div>
+          </div>
+          <div class="bar-item">
+            <div class="bar-label"><span>总贡献</span><strong id="totalValue">0.60</strong></div>
+            <div class="bar-track"><i id="totalBar" class="bar-fill total"></i></div>
+          </div>
+          <p id="gnnExplain" class="gnn-explain">温度场通过提高普朗克发射强度直接主导谱辐射，同时通过改变组分生成与反应路径产生间接贡献。</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="decision" class="section">
+      <div class="section-heading">
+        <p class="section-kicker">05 · INTERACTIVE DECISION</p>
+        <h2>智能决策台演示</h2>
+        <p>输入固定燃烧器高度与目标热辐射分配，系统演示如何推荐反应路径，并进一步给出燃料选择建议。</p>
+      </div>
+      <div class="decision-layout">
+        <form id="decisionForm" class="decision-form glass-card">
+          <label for="burnerHeight">固定燃烧器高度 <span id="heightText">350 mm</span></label>
+          <input id="burnerHeight" type="range" min="150" max="600" step="10" value="350" />
+
+          <label for="targetRadiation">目标热辐射分配 <span id="radiationText">45 kW/m²</span></label>
+          <input id="targetRadiation" type="range" min="10" max="100" step="1" value="45" />
+
+          <fieldset>
+            <legend>可用燃料</legend>
+            <label class="check-item"><input type="checkbox" name="fuel" value="CH4" checked /> 甲烷 CH₄</label>
+            <label class="check-item"><input type="checkbox" name="fuel" value="H2" checked /> 氢气 H₂</label>
+            <label class="check-item"><input type="checkbox" name="fuel" value="NH3" /> 氨气 NH₃</label>
+          </fieldset>
+
+          <button id="decisionBtn" class="btn btn-primary" type="submit">生成决策建议</button>
+          <p class="demo-hint">当前为前端演示，返回结果由规则生成，不代表真实模型输出。</p>
+        </form>
+
+        <div id="decisionOutput" class="decision-output glass-card">
+          <div class="output-empty">
+            <div class="output-orbit"></div>
+            <p>调整左侧工况后点击“生成决策建议”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="evaluation" class="section section-alt">
+      <div class="section-heading">
+        <p class="section-kicker">06 · EVALUATION</p>
+        <h2>实现与评估框架</h2>
+      </div>
+      <div class="metric-grid">
+        <article class="glass-card stat-card"><strong>0.118</strong><span>温度场重建 RMSE</span></article>
+        <article class="glass-card stat-card"><strong>0.046</strong><span>组分场重建 RMSE</span></article>
+        <article class="glass-card stat-card"><strong>91.4%</strong><span>不确定性覆盖率</span></article>
+        <article class="glass-card stat-card"><strong>0.87</strong><span>辐射贡献解释稳定性</span></article>
+      </div>
+      <div class="table-wrap glass-card">
+        <table>
+          <thead>
+            <tr><th>方案</th><th>温度 RMSE</th><th>组分 RMSE</th><th>辐射误差</th><th>覆盖率</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>传统物理插值</td><td>0.243</td><td>0.112</td><td>0.198</td><td>78.3%</td></tr>
+            <tr><td>深度重建基线</td><td>0.164</td><td>0.071</td><td>0.132</td><td>86.7%</td></tr>
+            <tr class="highlight-row"><td>PCCD + 视觉模块</td><td>0.118</td><td>0.046</td><td>0.089</td><td>91.4%</td></tr>
+          </tbody>
+        </table>
+        <p class="table-note">表中数值为原型展示用示意数据，后续应替换为实际论文结果。</p>
+      </div>
+    </section>
+
+    <section id="application" class="section">
+      <div class="section-heading">
+        <p class="section-kicker">07 · APPLICATION</p>
+        <h2>应用场景与工程意义</h2>
+      </div>
+      <div class="application-grid">
+        <article class="glass-card app-card"><h3>能源系统诊断与优化</h3><p>为燃烧器在线监测、效率评估和运行优化提供可解释的场信息。</p></article>
+        <article class="glass-card app-card"><h3>传感器点位指导</h3><p>根据可辨识边界，优先布置能最大化信息增益的观测点位。</p></article>
+        <article class="glass-card app-card"><h3>热辐射高效利用</h3><p>通过反应路径设计与辐射重分配，支持低排放、高辐射效率场景。</p></article>
+        <article class="glass-card app-card"><h3>可重复与开源</h3><p>统一数据、模型、评估代码入口，便于复现与社区协作。</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>PCCD · FlameLab — AI for Combustion Science</p>
+    <p>网站原型 · 数据与图表为演示用途</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
